@@ -9,19 +9,33 @@ namespace NumberOrdering.API.Services
     {
         #region Properties
         public int[] Numbers { get; private set; }
-        //public int[] Result { get; private set; }
         #endregion
 
         public NumberOrderingService(int[] numbers)
         {
+            if (numbers == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (!numbers.Any())
+            {
+                throw new ArgumentException();
+            }
+
             Numbers = numbers;
         }
 
+        /// <summary>
+        /// Order numbers
+        /// </summary>
         public void Order()
         {
+            //going through array
             for (int i = 0; i < Numbers.Length - 1; i++)
             {
-                for (int j = 0; j < Numbers.Length - 1; j++)
+                //bubbling max value and not going through ordered values
+                for (int j = 0; j < Numbers.Length - (i + 1); j++)
                 {
                     var firstNum = Numbers[j];
                     var secondNum = Numbers[j + 1];

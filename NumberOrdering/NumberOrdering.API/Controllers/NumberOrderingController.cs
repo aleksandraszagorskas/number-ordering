@@ -16,6 +16,10 @@ namespace NumberOrdering.API.Controllers
     {
         private readonly string resultPath = Path.Combine(Environment.CurrentDirectory, "Results", "results.txt");
 
+        /// <summary>
+        /// Get latest ordered numbers result
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/numbers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,12 +40,27 @@ namespace NumberOrdering.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Order provided numbers and save to file
+        /// </summary>
+        /// <param name="numbers">numbers to order</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/ordering")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Order([FromBody] int[] numbers)
         {
+            if (numbers == null
+                || !numbers.Any()
+                || numbers.Any(n=>n<1)
+                || numbers.Any(n=>n>10)
+                || numbers.Length != numbers.Distinct().Count())
+            {
+                return new BadRequestResult();
+            }
+
             var service = new NumberOrderingService(numbers);
 
             service.Order();

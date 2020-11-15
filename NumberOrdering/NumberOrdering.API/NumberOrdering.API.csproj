@@ -14,4 +14,10 @@
     <Folder Include="Results\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Results\results.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
