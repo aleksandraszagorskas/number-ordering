@@ -34,6 +34,9 @@ namespace NumberOrdering.API.Services
             BubbleSort();
         }
 
+        /// <summary>
+        /// Order numbers using bubble sort
+        /// </summary>
         private void BubbleSort()
         {
             //going through array
