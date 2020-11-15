@@ -31,9 +31,16 @@ namespace NumberOrdering.API.Services
         /// </summary>
         public void Order()
         {
+            BubbleSort();
+        }
+
+        private void BubbleSort()
+        {
             //going through array
             for (int i = 0; i < Numbers.Length - 1; i++)
             {
+                bool numChanged = false;
+
                 //bubbling max value and not going through ordered values
                 for (int j = 0; j < Numbers.Length - (i + 1); j++)
                 {
@@ -44,8 +51,18 @@ namespace NumberOrdering.API.Services
                     {
                         Numbers[j] = secondNum;
                         Numbers[j + 1] = firstNum;
+
+                        numChanged = true;
                     }
                 }
+
+                //if numbers didn't change, array is ordered
+                if (!numChanged)
+                {
+                    break;
+                }
+
+                numChanged = false;
             }
         }
     }
